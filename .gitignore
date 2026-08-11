@@ -6,3 +6,9 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+allure-results/
+allure-report/
+
+# Environment variables — never commit secrets
+.env
+.env.local
