@@ -1,5 +1,19 @@
 # Advance Playwright Framework
 
+<div align="center">
+  <div style="display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:999px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;box-shadow:0 0 18px rgba(16,185,129,0.45);animation:livePulse 1.5s infinite ease-in-out;">
+    <span style="width:10px;height:10px;border-radius:50%;background:#7ef9b8;display:inline-block;box-shadow:0 0 10px rgba(126,249,184,0.9);animation:livePulse 1.5s infinite ease-in-out;"></span>
+    Live
+  </div>
+</div>
+
+<style>
+@keyframes livePulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.96); opacity: 0.72; }
+}
+</style>
+
 A TypeScript + Playwright test automation framework for UI and API validation with reusable page objects, data-driven testing, logging, and custom HTML reporting.
 
 ## Overview
