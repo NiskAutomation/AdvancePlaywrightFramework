@@ -1,7 +1,7 @@
 # 🎭 Advance Playwright Framework
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=238,73,73,255,71,96,255,170,0&height=280&section=header&text=Advance%20Playwright%20Framework&fontSize=50&fontColor=FFFFFF&animation=fadeIn" alt="banner" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=00d9ff&customColorList=00d9ff,ff0000,228B22&height=280&section=header&text=Advance%20Playwright%20Framework&fontSize=50&fontColor=FFFFFF&animation=fadeIn" alt="banner" />
 </div>
 
 <div align="center">
@@ -15,24 +15,24 @@
 
 <div align="center">
   
-![Playwright](https://img.shields.io/badge/Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+![Playwright](https://img.shields.io/badge/Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white&labelColor=00d9ff)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white&labelColor=00d9ff)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white&labelColor=00d9ff)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&labelColor=00d9ff)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white&labelColor=00d9ff)
 
   <br />
   
-![License](https://img.shields.io/badge/License-ISC-blue?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)
-![Version](https://img.shields.io/badge/Version-1.0.0-orange?style=for-the-badge)
+![License](https://img.shields.io/badge/License-ISC-228B22?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active-ff0000?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-1.0.0-00d9ff?style=for-the-badge)
 
 </div>
 
 <div align="center" style="margin: 20px 0;">
-  <div style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:50px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;">
+  <div style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:50px;background:linear-gradient(135deg, #00d9ff 0%, #228B22 50%, #ff0000 100%);color:#fff;font-weight:bold;box-shadow:0 0 20px rgba(0, 217, 255, 0.6);">
     <span style="width:10px;height:10px;border-radius:50%;background:#fff;display:inline-block;animation:pulse 1.4s infinite;"></span>
-    <b>Live Automation Testing</b>
+    Live Automation Testing
   </div>
 </div>
 
@@ -481,15 +481,14 @@ export class LoginPage extends BasePage {
 
 <div align="center">
 
-| Language | Percentage | Status |
+| Language | Percentage | Visualization |
 |----------|-----------|--------|
-| **HTML** | 84.6% | 🟦 |
-| **TypeScript** | 15.4% | 🟦 |
+| **HTML** | 84.6% | ████████████████████████████████████░░ |
+| **TypeScript** | 15.4% | ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ |
 
-```
-████████████████████████████████████░░ 84.6% HTML
-██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 15.4% TypeScript
-```
+**Color Legend:**
+- 🟦 HTML (84.6%)
+- 🟩 TypeScript (15.4%)
 
 </div>
 
