@@ -1,0 +1,60 @@
+2026-08-12 23:42:03 [info] [login.spec] Opening the TTACart login page
+2026-08-12 23:42:03 [info] [LoginPage] Open login page
+2026-08-12 23:42:07 [info] [login.spec] Logging in as standard_user
+2026-08-12 23:42:07 [info] [LoginPage] loginAs standard_user
+2026-08-12 23:42:08 [info] [login.spec] Asserting that the login form is no longer visible
+2026-08-12 23:46:46 [info] [login.spec] Opening the TTACart login page
+2026-08-12 23:46:46 [info] [LoginPage] Open login page
+2026-08-12 23:46:48 [info] [login.spec] Logging in as standard_user
+2026-08-12 23:46:48 [info] [LoginPage] loginAs standard_user
+2026-08-12 23:46:48 [info] [login.spec] Asserting that the login form is no longer visible
+2026-08-12 23:47:33 [info] [login.spec] Opening the TTACart login page
+2026-08-12 23:47:33 [info] [LoginPage] Open login page
+2026-08-12 23:47:34 [info] [login.spec] Logging in as standard_user
+2026-08-12 23:47:34 [info] [LoginPage] loginAs standard_user
+2026-08-12 23:47:35 [info] [login.spec] Asserting that the login form is no longer visible
+2026-08-12 23:49:43 [info] [login.spec] Opening the TTACart login page
+2026-08-12 23:49:43 [info] [LoginPage] Open login page
+2026-08-12 23:49:45 [info] [login.spec] Logging in as standard_user
+2026-08-12 23:49:45 [info] [LoginPage] loginAs standard_user
+2026-08-12 23:49:45 [info] [login.spec] Asserting that the login form is no longer visible
+2026-08-12 23:51:42 [info] [login.spec] Opening the TTACart login page
+2026-08-12 23:51:42 [info] [LoginPage] Open login page
+2026-08-12 23:51:43 [info] [login.spec] Logging in as standard_user
+2026-08-12 23:51:43 [info] [LoginPage] loginAs standard_user
+2026-08-12 23:51:45 [info] [login.spec] Asserting that the login form is no longer visible
+2026-08-12 23:54:27 [info] [login.spec] Opening the TTACart login page
+2026-08-12 23:54:27 [info] [LoginPage] Open login page
+2026-08-12 23:54:29 [info] [login.spec] Logging in as standard_user
+2026-08-12 23:54:29 [info] [LoginPage] loginAs standard_user
+2026-08-12 23:54:30 [info] [login.spec] Asserting that the login form is no longer visible
+2026-08-12 23:59:56 [info] [login.spec] Opening the TTACart login page
+2026-08-12 23:59:56 [info] [LoginPage] Open login page
+2026-08-12 23:59:58 [info] [login.spec] Logging in as standard_user
+2026-08-12 23:59:58 [info] [LoginPage] loginAs standard_user
+2026-08-12 23:59:59 [info] [login.spec] Asserting that the login form is no longer visible
+2026-08-13 00:00:45 [info] [login.spec] Opening the TTACart login page
+2026-08-13 00:00:45 [info] [LoginPage] Open login page
+2026-08-13 00:00:47 [info] [login.spec] Logging in as standard_user
+2026-08-13 00:00:47 [info] [LoginPage] loginAs standard_user
+2026-08-13 00:00:48 [info] [login.spec] Asserting that the login form is no longer visible
+2026-08-13 00:03:46 [info] [login.spec] Opening the TTACart login page
+2026-08-13 00:03:46 [info] [LoginPage] Open login page
+2026-08-13 00:03:48 [info] [login.spec] Logging in as standard_user
+2026-08-13 00:03:48 [info] [LoginPage] loginAs standard_user
+2026-08-13 00:03:50 [info] [login.spec] Asserting that the login form is no longer visible
+2026-08-13 00:06:31 [info] [login.spec] Opening the TTACart login page
+2026-08-13 00:06:31 [info] [LoginPage] Open login page
+2026-08-13 00:06:32 [info] [login.spec] Logging in as standard_user
+2026-08-13 00:06:32 [info] [LoginPage] loginAs standard_user
+2026-08-13 00:06:33 [info] [login.spec] Asserting that the login form is no longer visible
+2026-08-13 00:07:33 [info] [login.spec] Opening the TTACart login page
+2026-08-13 00:07:33 [info] [LoginPage] Open login page
+2026-08-13 00:07:34 [info] [login.spec] Logging in as standard_user
+2026-08-13 00:07:34 [info] [LoginPage] loginAs standard_user
+2026-08-13 00:07:35 [info] [login.spec] Asserting that the login form is no longer visible
+2026-08-13 00:12:16 [info] [login.spec] Opening the TTACart login page
+2026-08-13 00:12:16 [info] [LoginPage] Open login page
+2026-08-13 00:12:17 [info] [login.spec] Logging in as standard_user
+2026-08-13 00:12:17 [info] [LoginPage] loginAs standard_user
+2026-08-13 00:12:19 [info] [login.spec] Asserting that the login form is no longer visible
