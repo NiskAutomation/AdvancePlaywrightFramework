@@ -1,7 +1,7 @@
 # 🎭 Advance Playwright Framework
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=00d9ff&customColorList=00d9ff,ff0000,228B22&height=280&section=header&text=Advance%20Playwright%20Framework&fontSize=50&fontColor=FFFFFF&animation=fadeIn" alt="banner" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=228B22,ff0000&height=280&section=footer&text=Advance%20Playwright%20Framework&fontSize=50&fontColor=FFFFFF&animation=fadeIn" alt="banner" />
 </div>
 
 <div align="center">
@@ -15,22 +15,22 @@
 
 <div align="center">
   
-![Playwright](https://img.shields.io/badge/Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white&labelColor=00d9ff)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white&labelColor=00d9ff)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white&labelColor=00d9ff)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&labelColor=00d9ff)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white&labelColor=00d9ff)
+![Playwright](https://img.shields.io/badge/Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white&labelColor=228B22)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white&labelColor=228B22)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white&labelColor=ff0000)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&labelColor=228B22)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white&labelColor=ff0000)
 
   <br />
   
 ![License](https://img.shields.io/badge/License-ISC-228B22?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Active-ff0000?style=for-the-badge)
-![Version](https://img.shields.io/badge/Version-1.0.0-00d9ff?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-1.0.0-228B22?style=for-the-badge)
 
 </div>
 
 <div align="center" style="margin: 20px 0;">
-  <div style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:50px;background:linear-gradient(135deg, #00d9ff 0%, #228B22 50%, #ff0000 100%);color:#fff;font-weight:bold;box-shadow:0 0 20px rgba(0, 217, 255, 0.6);">
+  <div style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:50px;background:linear-gradient(135deg, #228B22 0%, #ff0000 100%);color:#fff;font-weight:bold;box-shadow:0 0 20px rgba(255, 0, 0, 0.6);">
     <span style="width:10px;height:10px;border-radius:50%;background:#fff;display:inline-block;animation:pulse 1.4s infinite;"></span>
     Live Automation Testing
   </div>
@@ -367,7 +367,7 @@ The framework supports multiple environments:
 | Staging | `STAGE_BASE_URL` | https://stage-app.thetestingacademy.com |
 | Production | `PROD_BASE_URL` | https://app.thetestingacademy.com |
 | Local | `BASE_URL` | http://localhost:3000 |
-| API | `BASE_URL_API` | https://api.example.com |
+| API | `BASE_BASE_URL_API` | https://api.example.com |
 
 ---
 
@@ -487,8 +487,8 @@ export class LoginPage extends BasePage {
 | **TypeScript** | 15.4% | ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ |
 
 **Color Legend:**
-- 🟦 HTML (84.6%)
-- 🟩 TypeScript (15.4%)
+- 🟩 HTML (84.6%)
+- 🟦 TypeScript (15.4%)
 
 </div>
 
@@ -659,10 +659,24 @@ If you find this framework helpful, please consider giving it a ⭐ on GitHub!
 
 ---
 
+## 📞 Connect & Support
+
+<div align="center">
+
+[**Report Bug**](https://github.com/NiskAutomation/AdvancePlaywrightFramework/issues) • [**Request Feature**](https://github.com/NiskAutomation/AdvancePlaywrightFramework/issues) • [**GitHub Profile**](https://github.com/NiskAutomation)
+
+</div>
+
+---
+
 <div align="center">
   
 **Made with ❤️ by NiskAutomation**
 
 [⬆ Back to Top](#-advance-playwright-framework)
 
+</div>
+
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=228B22,ff0000&height=120&section=footer" alt="footer" />
 </div>
