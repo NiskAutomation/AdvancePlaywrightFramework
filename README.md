@@ -1,16 +1,20 @@
 # Advance Playwright Framework
 
 <div align="center">
-  <div style="display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:999px;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;box-shadow:0 0 18px rgba(16,185,129,0.45);animation:livePulse 1.5s infinite ease-in-out;">
-    <span style="width:10px;height:10px;border-radius:50%;background:#7ef9b8;display:inline-block;box-shadow:0 0 10px rgba(126,249,184,0.9);animation:livePulse 1.5s infinite ease-in-out;"></span>
-    Live
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=15,85,180,255,120&height=220&section=header&text=Advance%20Playwright%20Framework&fontSize=42&fontColor=ffffff&animation=twinkling&fontAlignY=38&desc=UI%20%2B%20API%20Automation%20with%20Playwright%20%7C%20TypeScript&descAlignY=60&descSize=18" />
+</div>
+
+<div align="center">
+  <div style="display:inline-flex;align-items:center;gap:10px;padding:10px 22px;border-radius:999px;background:linear-gradient(135deg,#ff4d6d,#ff8a00,#ffd166,#06d6a0,#118ab2,#7b2ff7);color:#fff;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;box-shadow:0 0 22px rgba(123,47,247,0.45);">
+    <span style="width:12px;height:12px;border-radius:50%;background:#fff;display:inline-block;box-shadow:0 0 14px rgba(255,255,255,0.9);animation:pulse 1.4s infinite ease-in-out;"></span>
+    Live Automation
   </div>
 </div>
 
 <style>
-@keyframes livePulse {
+@keyframes pulse {
   0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(0.96); opacity: 0.72; }
+  50% { transform: scale(0.84); opacity: 0.7; }
 }
 </style>
 
