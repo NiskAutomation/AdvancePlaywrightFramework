@@ -1,11 +1,18 @@
 # Advance Playwright Framework
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=15,85,180,255,120&height=220&section=header&text=Advance%20Playwright%20Framework&fontSize=42&fontColor=ffffff&animation=twinkling&fontAlignY=38&desc=UI%20%2B%20API%20Automation%20with%20Playwright%20%7C%20TypeScript&descAlignY=60&descSize=18" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=238,73,73,255,71,96,255,170,0&height=260&section=header&text=Advance%20Playwright%20Framework&fontSize=44&fontColor=ffffff&animation=twinkling&fontAlignY=38&desc=UI%20%2B%20API%20Automation%20with%20Playwright%20%7C%20TypeScript&descAlignY=60&descSize=17" />
 </div>
 
 <div align="center">
-  <div style="display:inline-flex;align-items:center;gap:10px;padding:10px 22px;border-radius:999px;background:linear-gradient(135deg,#ff4d6d,#ff8a00,#ffd166,#06d6a0,#118ab2,#7b2ff7);color:#fff;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;box-shadow:0 0 22px rgba(123,47,247,0.45);">
+  <img alt="Playwright Badge" src="https://img.shields.io/badge/Playwright-2EAD33?style=for-the-badge&logo=playwright&logoColor=white" />
+  <img alt="TypeScript Badge" src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img alt="Node.js Badge" src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+  <img alt="HTML Report Badge" src="https://img.shields.io/badge/HTML%20Report-Custom-FF6B6B?style=for-the-badge" />
+</div>
+
+<div align="center" style="margin: 18px 0 12px 0;">
+  <div style="display:inline-flex;align-items:center;gap:10px;padding:10px 24px;border-radius:999px;background:linear-gradient(135deg,#ff4d6d,#ff8a00,#ffd166,#06d6a0,#118ab2,#7b2ff7);color:#fff;font-weight:900;letter-spacing:0.16em;text-transform:uppercase;box-shadow:0 0 22px rgba(123,47,247,0.45), 0 0 16px rgba(255,107,107,0.35);">
     <span style="width:12px;height:12px;border-radius:50%;background:#fff;display:inline-block;box-shadow:0 0 14px rgba(255,255,255,0.9);animation:pulse 1.4s infinite ease-in-out;"></span>
     Live Automation
   </div>
