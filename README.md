@@ -25,23 +25,22 @@
 }
 </style>
 
-A TypeScript + Playwright test automation framework for UI and API validation with reusable page objects, data-driven testing, logging, and custom HTML reporting.
+A TypeScript + Playwright framework for end-to-end web testing with reusable page objects, environment configuration, data-driven utilities, custom reporting, and rich browser automation workflows.
 
 ## Overview
 
-This project is built for fast, scalable, maintainable end-to-end test automation. It includes:
+This project is designed for stable and scalable UI automation using Playwright and TypeScript. It includes:
 
-- Page Object Model (POM) architecture
-- Environment-based configuration using .env
-- Built-in logger utilities
-- Reusable test data helpers
-- Custom HTML report generation with screenshot, video, and trace links
-- Support for headed and headless runs
-- Browser automation using Playwright Test
+- Page Object Model structure for reusable browser interactions
+- Environment-aware configuration via .env and Playwright config
+- Centralized logger utility
+- Custom HTML report generator with screenshot, video, and trace links
+- Support for headless and headed execution
+- Browser automation covering login and cart journey flows
 
 ## Tech Stack
 
-- Playwright
+- Playwright Test
 - TypeScript
 - Node.js
 - Faker
@@ -50,30 +49,60 @@ This project is built for fast, scalable, maintainable end-to-end test automatio
 - AJV
 - csv-parse
 - xlsx
-- Custom HTML reporter
+- Custom HTML Reporter
 
 ## Project Structure
 
 ```bash
 ADVANCEPLAYWRIGHTFRAMEWORK/
+├── .github/
+├── docs/
+├── logs/
+├── reports/
+├── rules/
 ├── src/
 │   ├── api/
 │   ├── config/
 │   ├── fixtures/
 │   ├── pages/
+│   │   ├── BasePage.ts
+│   │   ├── LoginPage.ts
+│   │   └── ...
 │   ├── testdata/
 │   ├── tests/
+│   │   └── login.spec.ts
 │   └── utils/
-├── docs/
-├── rules/
-├── tta-report/
+│       ├── CustomReporter.ts
+│       ├── DataGenerator.ts
+│       ├── logger.ts
+│       └── UtilElementLocator.ts
 ├── .env
+├── .gitignore
 ├── package.json
 ├── playwright.config.ts
-├── tsconfig.json
 ├── README.md
-└── .gitignore
+├── tsconfig.json
+├── test-results/
+├── tta-report/
+└── playwright-report/
 ```
+
+## Features
+
+- Browser automation for UI testing with Playwright
+- Base page abstraction and page object structure
+- Login flow validation using TTACart demo app
+- Environment variables for QA, DEV, STAGE, PROD, and API endpoints
+- Real-time HTML reporting with row-level links to artifacts
+- Screenshot and video recording on test execution
+- Trace file generation for debugging
+- Type-safe configuration with tsconfig path aliases
+
+## Prerequisites
+
+- Node.js 18+
+- npm 9+
+- Playwright browser dependencies
 
 ## Installation
 
@@ -82,16 +111,31 @@ npm install
 npx playwright install
 ```
 
-## Environment Setup
+## Environment Configuration
 
-Create a `.env` file in the project root and set values similar to:
+The framework uses a `.env` file with environment-specific overrides. The Playwright config resolves URLs based on the selected environment.
+
+Supported environment values in the project config:
+
+- `qa`
+- `dev`
+- `local`
+- `stage`
+- `prod`
+- `production`
+- `api`
+
+Example:
 
 ```bash
 TEST_ENV=qa
 BASE_URL=https://www.saucedemo.com/
+QA_BASE_URL=https://qa-app.thetestingacademy.com
+DEV_BASE_URL=https://dev-app.thetestingacademy.com
+STAGE_BASE_URL=https://stage-app.thetestingacademy.com
+PROD_BASE_URL=https://app.thetestingacademy.com
+BASE_URL_API=https://restful-booker.herokuapp.com
 ```
-
-You can also use project-specific environment values depending on the test configuration in your setup.
 
 ## Running Tests
 
@@ -99,56 +143,80 @@ You can also use project-specific environment values depending on the test confi
 # Run all tests
 npx playwright test
 
-# Run one spec
+# Run a specific spec
 npx playwright test src/tests/login.spec.ts
+
+# Run a specific browser project
+npx playwright test --project=chromium
 
 # Run in headed mode
 npx playwright test src/tests/login.spec.ts --project=chromium --headed
 
-# Run with specific browser project
-npx playwright test --project=chromium
+# Run with debug mode
+npx playwright test --debug
 ```
 
-## HTML Report
+## Playwright Configuration
 
-This project includes a custom HTML report that stores results in the `tta-report` folder and includes:
+The project uses the following configuration in [playwright.config.ts](playwright.config.ts):
 
-- Screenshot links
-- Video links
-- Trace links
-- Test summary table
-- per-test detail sections
+- test directory: `src/tests`
+- reporter: list + HTML + custom TTA reporter
+- base URL resolved from env variables
+- screenshot on failure
+- video enabled
+- trace enabled
+- chromium project configured for desktop browser
 
-To open the last generated report:
+## Custom Reporting
+
+The custom report is implemented in [src/utils/CustomReporter.ts](src/utils/CustomReporter.ts).
+
+It generates a rich HTML report with:
+
+- summary dashboard
+- per-test rows
+- screenshot link
+- video link
+- trace link
+- file and status information
+- live banner styling
+
+Reports are generated in the `tta-report` folder.
+
+## Opening Reports
 
 ```bash
 npx playwright show-report
 ```
 
-The generated report files are created under:
+Or open the generated HTML directly from the `tta-report` folder.
 
-```bash
-tta-report/
-```
+## Example Test
 
-## Custom Reporter
+The sample login flow is in [src/tests/login.spec.ts](src/tests/login.spec.ts).
 
-The reporter logic is implemented in:
+It demonstrates:
 
-```bash
-src/utils/CustomReporter.ts
-```
+- page object usage
+- test steps and logging
+- assertion on hidden login button after successful login
 
-It writes a rich HTML dashboard and captures attachments from Playwright, including:
+## Logger and Utilities
 
-- screenshots
-- video artifacts
-- trace ZIP files
+The project includes common support utilities:
+
+- [src/utils/logger.ts](src/utils/logger.ts): Winston logger with file + console output
+- [src/utils/UtilElementLocator.ts](src/utils/UtilElementLocator.ts): element helper wrapper
+- [src/utils/DataGenerator.ts](src/utils/DataGenerator.ts): data generation utilities
+- [src/pages/BasePage.ts](src/pages/BasePage.ts): shared page/base structure
+- [src/pages/LoginPage.ts](src/pages/LoginPage.ts): login page object
 
 ## Notes
 
-- The reporter is designed to keep working even when optional AI modules are not available.
-- If the project has no AI agent implementation present, the report falls back gracefully instead of crashing the test run.
+- The custom reporter is resilient when optional AI modules are not present.
+- The generated HTML report keeps working even without external AI dependencies.
+- Artifact folders like `tta-report/`, `playwright-report/`, and `reports/` are used to keep execution results and historical snapshots.
 
 ## Author
 
