@@ -889,6 +889,7 @@ class CustomReporter implements Reporter {
 </head>
 <body>
     <div class="header">
+        <div class="live-banner"><span class="live-dot"></span> LIVE</div>
         <h1>🎭 TTA Automation Report</h1>
         <p class="header-subtitle">The Testing Academy - Playwright Framework</p>
     </div>
@@ -1477,9 +1478,39 @@ class CustomReporter implements Reporter {
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
             animation: pulse 15s ease-in-out infinite;
         }
+        .live-banner {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            margin-bottom: 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            box-shadow: 0 0 12px rgba(132, 255, 200, 0.3);
+            animation: livePulse 1.5s infinite ease-in-out;
+            backdrop-filter: blur(4px);
+        }
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #7ef9b8;
+            box-shadow: 0 0 10px rgba(126, 249, 184, 0.9);
+            animation: livePulse 1.5s infinite ease-in-out;
+        }
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 0.5; }
             50% { transform: scale(1.1); opacity: 0.3; }
+        }
+        @keyframes livePulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(0.96); opacity: 0.72; }
         }
         .header h1 {
             font-size: 32px;
