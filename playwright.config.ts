@@ -60,6 +60,7 @@ export default defineConfig({
     {
       name: 'chromium',
       testDir: './src/tests',
+      testIgnore: '**/apiTests/**',
       use: {
         ...devices['Desktop Chrome'],
         viewport: { width: 1920, height: 1080 }
@@ -67,7 +68,7 @@ export default defineConfig({
     },
     {
       name: 'api',
-      testDir: './src/api',
+      testDir: './src/tests/apiTests',
       use:{
         baseURL: process.env.API_BASE_URL || 'https://restful-booker.herokuapp.com',   
       }

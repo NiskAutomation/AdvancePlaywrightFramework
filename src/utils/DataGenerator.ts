@@ -78,6 +78,26 @@ export class DataGenerator {
         return faker.location.zipCode();
     }
 
+    // ---------- generic helpers used by API data builders ----------
+
+    static number(min: number, max: number): number {
+        return faker.number.int({ min, max });
+    }
+
+    static bool(): boolean {
+        return faker.datatype.boolean();
+    }
+
+    static oneOf<T>(values: readonly T[]): T {
+        return values[Math.floor(Math.random() * values.length)];
+    }
+
+    static dateOffset(days: number, from = new Date()): string {
+        const next = new Date(from);
+        next.setDate(next.getDate() + days);
+        return next.toISOString().slice(0, 10);
+    }
+
     // ---------- composites ----------
 
     /** Customer info for the TTACart checkout step-one form. */

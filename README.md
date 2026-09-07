@@ -39,10 +39,10 @@ This repository combines UI and API automation in one Playwright Test project. I
 | Capability | Current implementation |
 | --- | --- |
 | UI automation | Chromium project with Page Object Model classes |
-| API automation | Dedicated `api` project and Restful Booker specifications |
+| API automation | Layered Restful Booker coverage: raw requests, `ApiHelper`, and a typed `BookingApi` service |
 | Language | Strict TypeScript with path aliases |
-| Test data | Environment variables, JSON, Faker, CSV, and Excel dependencies |
-| Fixtures | Shared page-object fixtures in `src/fixtures/test-base.ts` |
+| Test data | Environment variables, JSON, Faker-backed booking builders, CSV, and Excel dependencies |
+| Fixtures | Shared page-object fixtures plus a Restful Booker API fixture with managed authentication |
 | Logging | Scoped Winston loggers with console and file output |
 | Reporting | Playwright HTML, list output, and a custom TTA HTML reporter |
 | Evidence | Video and trace on every configured run; optional step screenshots |
@@ -71,7 +71,13 @@ flowchart LR
     BP --> EL[UtilElementLocator]
 
     UI --> DATA[Environment + Faker + JSON]
-    API[API specifications] --> PW[Playwright request context]
+    API[API specifications] --> RAW[Raw request examples]
+    API --> AH[ApiHelper]
+    AH --> BA[BookingApi service]
+    BA --> BFX[Booker fixtures]
+    BFX --> BDATA[Faker-backed booking builders]
+    RAW --> PW[Playwright request context]
+    AH --> PW
     UI --> RUNNER[Playwright Test runner]
     API --> RUNNER
 
@@ -81,7 +87,7 @@ flowchart LR
     TTA --> MEDIA[Screenshots, video, traces, logs, history]
 ```
 
-The UI tests consume page objects through custom fixtures. Page objects inherit common navigation and logging behavior from `BasePage`, while `UtilElementLocator` centralizes low-level actions and waits. API tests use Playwright's request context directly.
+The UI tests consume page objects through custom fixtures. Page objects inherit common navigation and logging behavior from `BasePage`, while `UtilElementLocator` centralizes low-level actions and waits. API coverage progresses from direct Playwright request calls to the reusable `ApiHelper`, then to the typed `BookingApi` service and `booker-fixture` lifecycle.
 
 ## Project structure
 
@@ -99,11 +105,12 @@ AdvancePlaywrightFramework/
 │   └── runs/                           # Custom reporter build snapshots
 ├── src/
 │   ├── api/
-│   │   └── 01_restfulbooker_raw/       # Ping, POST, context, PUT, and CRUD API tests
+│   │   └── BookingAPI.ts               # Typed Restful Booker service and response models
 │   ├── config/
 │   │   ├── credentials.ts              # Environment-backed UI credentials
 │   │   └── env.ts                      # Required/optional environment helpers
 │   ├── fixtures/
+│   │   ├── booker-fixture.ts           # BookingApi and managed-token fixtures
 │   │   └── test-base.ts                # Typed page-object fixtures
 │   ├── pages/
 │   │   ├── BasePage.ts
@@ -115,12 +122,18 @@ AdvancePlaywrightFramework/
 │   │   ├── CheckoutStepTwoPage.ts
 │   │   └── CheckoutCompletePage.ts
 │   ├── testdata/
+│   │   ├── booking.data.ts             # Faker-backed booking builders
 │   │   └── logintestdata.json          # Data-driven login cases
 │   ├── tests/
+│   │   ├── apiTests/
+│   │   │   ├── 01_restfulbooker_raw/   # Direct request examples
+│   │   │   ├── 02_restfulbooker_apiHeader/ # ApiHelper examples
+│   │   │   ├── 03_restfulbooker_fixture_e2e_api/ # Fixture E2E and negative paths
+│   │   │   └── 04_jsonPath/            # JSONPath tests, data, and cheat sheet
 │   │   ├── e2e/                        # Checkout journeys
 │   │   └── login/                      # Login tests
 │   └── utils/
-│       ├── APiHelper.ts                # API helper scaffold
+│       ├── APiHelper.ts                # Generic HTTP verbs, retries, status checks, and JSON parsing
 │       ├── CustomReporter.ts           # TTA HTML reporter
 │       ├── DataGenerator.ts            # Faker-backed data generation
 │       ├── logger.ts                   # Winston logger factory
@@ -263,13 +276,13 @@ npx playwright test src/tests/e2e/e2e-checkout.spec-env.spec.ts --project=chromi
 ### Run test projects
 
 ```bash
-# Run every configured project: Chromium UI + API
+# Run every configured project
 npx playwright test
 
 # Run only browser tests under src/tests
 npx playwright test --project=chromium
 
-# Run only request tests under src/api
+# Run only the API suites under src/tests/apiTests
 npx playwright test --project=api
 ```
 
@@ -286,10 +299,13 @@ npx playwright test src/tests/e2e/e2e-checkout.spec.ts --project=chromium
 npx playwright test src/tests/e2e/e2e-checkout.spec-env.spec.ts --project=chromium
 
 # All Restful Booker API examples
-npx playwright test src/api/01_restfulbooker_raw --project=api
+npx playwright test --project=api
 
-# One API specification
-npx playwright test src/api/01_restfulbooker_raw/05_Crud.spec.ts --project=api
+# Typed fixture-based CRUD lifecycle
+npx playwright test src/tests/apiTests/03_restfulbooker_fixture_e2e_api/booking-crud-e2e.spec.ts --project=api
+
+# JSONPath examples
+npx playwright test src/tests/apiTests/04_jsonPath/jsonpath-queries.e2e.spec.ts --project=api
 
 # Start from a particular test declaration line
 npx playwright test src/tests/e2e/e2e-checkout.spec.ts:30 --project=chromium
@@ -427,13 +443,13 @@ npm audit
 
 | File | Coverage |
 | --- | --- |
-| `01_basic_ping.spec.ts` | Service health/ping request |
-| `02_post_operation.spec.ts` | Booking creation with response assertions |
-| `03_newcontext_api.spec.ts` | Isolated API request context and headers |
-| `04_put_operation.spec.ts` | Authenticated booking update |
-| `05_Crud.spec.ts` | Serial token creation, booking creation, and update flow |
+| `01_restfulbooker_raw/` | Direct request examples for ping, POST, isolated contexts, authenticated PUT, and serial CRUD |
+| `02_restfulbooker_apiHeader/` | Reusable `ApiHelper` examples for booking creation and Cookie-authenticated updates |
+| `03_restfulbooker_fixture_e2e_api/booking-crud-e2e.spec.ts` | Fixture-driven create, update, read-back, delete, and 404 verification |
+| `03_restfulbooker_fixture_e2e_api/booking-negative.spec.ts` | Unknown IDs, malformed bodies, bad credentials, invalid tokens, and typed error behavior |
+| `04_jsonPath/jsonpath-queries.e2e.spec.ts` | JSONPath field, wildcard, recursive-descent, index, slice, and filter queries |
 
-The API examples use Restful Booker as a learning/demo service. Do not reuse its demonstration credentials for real systems.
+The API examples use Restful Booker as a learning/demo service. The companion [`jsonpath-cheatsheet.md`](src/tests/apiTests/04_jsonPath/jsonpath-cheatsheet.md) documents the expressions used by the JSONPath suite. Do not reuse demonstration credentials for real systems.
 
 ## Framework components
 
@@ -464,6 +480,19 @@ test('example', async ({ loginPage, inventoryPage, cartPage }) => {
 });
 ```
 
+Import the Booker fixture when a test needs the typed service or an authentication token:
+
+```typescript
+import { test, expect } from '@fixtures/booker-fixture';
+
+test('create a booking', async ({ bookingApi }) => {
+  const created = await bookingApi.createBooking(payload);
+  expect(created.bookingid).toBeGreaterThan(0);
+});
+```
+
+`bookingApi` caches a token for authenticated operations and refreshes a managed token once after a `403`. The optional `bookerToken` fixture exposes the token value when a test needs to pass or inspect it explicitly.
+
 ### Path aliases
 
 `tsconfig.json` defines these import aliases:
@@ -480,11 +509,13 @@ test('example', async ({ loginPage, inventoryPage, cartPage }) => {
 ### Utilities
 
 - `UtilElementLocator` accepts selectors or Playwright locators and wraps clicks, fills, hover, text/value reads, waits, state checks, and select operations.
-- `DataGenerator` creates credentials, names, email addresses, phone numbers, postal codes, checkout customers, and complete user profiles with Faker.
+- `DataGenerator` creates credentials, names, contact details, checkout customers, numbers, booleans, selections, and date offsets with Faker.
+- `booking.data.ts` builds generated bookings or stable-date payloads with per-test overrides.
 - `env.ts` provides `requireEnv`, `envOr`, and `assertEnv` for explicit configuration handling.
 - `VisualSteps` combines `test.step` with optional per-step screenshot attachments.
 - `logger.ts` creates global or scoped Winston loggers and writes runtime output under `logs/`.
-- `APiHelper.ts` is currently an empty scaffold reserved for reusable HTTP methods.
+- `APiHelper.ts` accepts a Playwright `Page` or `APIRequestContext` and provides generic HTTP verbs, query parameters, polling retries, typed JSON parsing, and status helpers.
+- `BookingAPI.ts` wraps Restful Booker with typed list, read, auth, create, update, patch, and delete operations plus managed-token renewal.
 
 ### Installed libraries
 
@@ -559,7 +590,7 @@ To run only a currently independent test file while the fixture example is being
 
 ```bash
 npx playwright test src/tests/login/login.spec.ts --project=chromium
-npx playwright test src/api/01_restfulbooker_raw/01_basic_ping.spec.ts --project=api
+npx playwright test src/tests/apiTests/01_restfulbooker_raw/01_basic_ping.spec.ts --project=api
 ```
 
 ## Troubleshooting
