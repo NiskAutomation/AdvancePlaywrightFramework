@@ -188,24 +188,48 @@ To install only Chromium:
 npx playwright install chromium
 ```
 
-> Most tasks use direct `npx playwright ...` commands documented below. `npm run lint` and `npm run lint:fix` are the only defined scripts today.
+> Most tasks use direct `npx playwright ...` commands documented below. `npm run lint`,
+> `npm run lint:fix`, `npm run typecheck`, and `npm run verify` are the defined scripts today.
 
-### Linting (ESLint)
+### Linting and type checking (ESLint + TypeScript)
 
-Install (already covered by `npm ci`/`npm install` above, since it's a devDependency):
-
-```bash
-npm install -D eslint typescript-eslint
-```
-
-Run it:
+Install (already covered by `npm ci`/`npm install` above, since these are devDependencies):
 
 ```bash
-npm run lint       # check
-npm run lint:fix   # check and auto-fix
+npm install -D eslint typescript-eslint eslint-plugin-playwright @eslint/js typescript
 ```
 
-Config lives in [`eslint.config.cjs`](eslint.config.cjs) (flat config): TypeScript-aware rules via `typescript-eslint`'s recommended set, `node_modules/`, `playwright-report/`, `tta-report/`, `test-results/`, `reports/`, and `logs/` ignored, and `@typescript-eslint/no-require-imports` turned off only for the config file itself and `src/utils/CustomReporter.ts` (which intentionally uses `require()` to load the optional AI modules without a hard dependency).
+`package.json` scripts:
+
+```bash
+npm run typecheck   # tsc --noEmit -p tsconfig.json
+npm run lint         # eslint .
+npm run lint:fix     # eslint . --fix
+npm run verify       # typecheck && lint && the full Playwright suite
+```
+
+Equivalent direct ESLint CLI commands, useful when you don't want to run the whole project:
+
+```bash
+npx eslint .                                   # lint everything (same as npm run lint)
+npx eslint . --fix                             # auto-fix everything that's fixable
+npx eslint src/utils/CustomReporter.ts         # lint a single file
+npx eslint src/tests/**/*.spec.ts              # lint just the specs
+npx eslint . --quiet                           # errors only, hide warnings
+npx eslint . --max-warnings=0                  # fail the run on any warning (CI-style gate)
+npx eslint . -f compact                        # one line per problem, easier to grep/pipe
+npx eslint --print-config src/utils/logger.ts  # see the fully resolved config for one file
+npx tsc --noEmit                               # type-check without emitting .js output
+npx tsc --noEmit --watch                       # type-check continuously while editing
+```
+
+Config lives in [`eslint.config.mjs`](eslint.config.mjs) (ESLint 9 flat config, ESM): TypeScript
+type-aware rules via `typescript-eslint`'s `recommendedTypeChecked`, `eslint-plugin-playwright`'s
+recommended rules scoped to `src/tests/**/*.spec.ts`, and `node_modules/`, `test-results/`,
+`playwright-report/`, `blob-report/`, `tta-report/`, `reports/`, `logs/`, `docs/`, `Learning/`, and
+`.claude/`/`.github/` (skill scripts) ignored. `@typescript-eslint/no-require-imports` is turned
+off only for `src/utils/CustomReporter.ts`, which intentionally uses `require()` to load the
+optional AI modules without a hard dependency.
 
 ## Environment configuration
 
@@ -290,11 +314,15 @@ npx playwright test src/tests/e2e/e2e-checkout.spec-env.spec.ts --project=chromi
 
 ## Command reference
 
-### Lint
+### Lint and type check
 
 ```bash
-npm run lint
-npm run lint:fix
+npm run typecheck                              # tsc --noEmit
+npm run lint                                   # eslint .
+npm run lint:fix                               # eslint . --fix
+npm run verify                                 # typecheck && lint && npm test
+npx eslint <path/to/file.ts>                   # lint one file
+npx eslint . --max-warnings=0                  # zero-tolerance CI-style gate
 ```
 
 ### Run test projects
