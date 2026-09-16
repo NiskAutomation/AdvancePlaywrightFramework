@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AI RCA verdict",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["severity", "priority", "rootCause", "fixes"],
+  "properties": {
+    "severity": { "type": "string", "enum": ["critical", "high", "medium", "low"] },
+    "priority": { "type": "string", "enum": ["P0", "P1", "P2", "P3"] },
+    "rootCause": { "type": "string", "minLength": 1, "maxLength": 600 },
+    "fixes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1, "maxLength": 200 },
+      "minItems": 1,
+      "maxItems": 6
+    }
+  }
+}

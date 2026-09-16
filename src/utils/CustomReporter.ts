@@ -17,43 +17,17 @@ import {
 } from '@playwright/test/reporter';
 import * as fs from 'fs';
 import * as path from 'path';
-
-type RcaVerdict = {
-    severity: 'LOW' | 'MEDIUM' | 'HIGH';
-    priority: 'LOW' | 'MEDIUM' | 'HIGH';
-    rootCause: string;
-    fixes: string[];
-};
-
-type BuildSummary = {
-    runId: string;
-    tests: Record<string, 'passed' | 'failed' | 'skipped' | 'timedOut'>;
-};
-
-type FlakyResult = {
-    counts: { flaky: number; failing: number; total: number };
-    flaky: string[];
-    summary?: string;
-};
+import type { RcaVerdict } from '../ai/agents/rcaAgent';
+import type { BuildSummary, FlakyResult } from '../ai/agents/flakyAnalyzer';
 
 const safeAnalyzeFailure = (() => {
     try {
         const mod = require('../ai/agents/rcaAgent');
         return typeof mod.analyzeFailure === 'function'
             ? mod.analyzeFailure
-            : async () => ({
-                severity: 'LOW',
-                priority: 'LOW',
-                rootCause: 'AI RCA analysis is unavailable because the optional agent module is not installed.',
-                fixes: ['Verify the AI agent files exist in the project and retry the run.'],
-            } as RcaVerdict);
+            : undefined;
     } catch {
-        return async () => ({
-            severity: 'LOW',
-            priority: 'LOW',
-            rootCause: 'AI RCA analysis is unavailable because the optional agent module is not installed.',
-            fixes: ['Verify the AI agent files exist in the project and retry the run.'],
-        } as RcaVerdict);
+        return undefined;
     }
 })();
 
@@ -281,8 +255,8 @@ class CustomReporter implements Reporter {
     onTestEnd(test: TestCase, result: TestResult): void {
         this.suiteStats.total++;
 
-        let status: 'passed' | 'failed' | 'skipped' | 'timedOut' = 'passed';
-        let statusIcon = '✅';
+        let status: 'passed' | 'failed' | 'skipped' | 'timedOut';
+        let statusIcon: string;
         if (result.status === 'passed') {
             this.suiteStats.passed++;
             status = 'passed';
@@ -560,6 +534,7 @@ class CustomReporter implements Reporter {
 
     // RCA AI agent: analyze each failed test via the LLM gateway and store a verdict.
     private async runRcaAnalysis(): Promise<void> {
+        if (!analyzeFailure) return;
         const failures = this.testResults.filter(
             (t) => t.status === 'failed' || t.status === 'timedOut',
         );
@@ -585,7 +560,9 @@ class CustomReporter implements Reporter {
                     error: t.error ?? 'Unknown error',
                     stack: t.errorStack,
                 });
-                this.aiVerdicts.push({ test: t.fullTitle, file: t.location, verdict });
+                if (verdict) {
+                    this.aiVerdicts.push({ test: t.fullTitle, file: t.location, verdict });
+                }
             } catch (e) {
                 console.warn(`RCA failed for ${t.title}: ${(e as Error).message}`);
             }
@@ -903,12 +880,12 @@ class CustomReporter implements Reporter {
             ${this.generateFilters()}
             ${this.generateTestTable()}
         </div>
-        <div id="tab-aidata" class="main-tab-panel">
+        ${this.aiData.length ? `<div id="tab-aidata" class="main-tab-panel">
             ${this.generateAiDataTab()}
-        </div>
-        <div id="tab-verdict" class="main-tab-panel">
+        </div>` : ''}
+        ${this.aiVerdicts.length ? `<div id="tab-verdict" class="main-tab-panel">
             ${this.generateAiVerdictTab()}
-        </div>
+        </div>` : ''}
         <div id="tab-flaky" class="main-tab-panel">
             ${this.generateFlakyTab()}
         </div>
@@ -1032,8 +1009,8 @@ class CustomReporter implements Reporter {
         return `
         <div class="main-tabs">
             <button class="main-tab active" onclick="switchMainTab('results', this)">📋 Test Results</button>
-            <button class="main-tab" onclick="switchMainTab('aidata', this)">🤖 AI Data${aiCount ? ` (${aiCount})` : ''}</button>
-            <button class="main-tab" onclick="switchMainTab('verdict', this)">⚖️ AI Verdict${rcaCount ? ` (${rcaCount})` : ''}</button>
+            ${aiCount ? `<button class="main-tab" onclick="switchMainTab('aidata', this)">🤖 AI Data (${aiCount})</button>` : ''}
+            ${rcaCount ? `<button class="main-tab" onclick="switchMainTab('verdict', this)">⚖️ AI Verdict (${rcaCount})</button>` : ''}
             <button class="main-tab" onclick="switchMainTab('flaky', this)">🔁 Flaky${this.flakyResult ? ` (${this.flakyResult.counts.flaky})` : ''}</button>
         </div>`;
     }

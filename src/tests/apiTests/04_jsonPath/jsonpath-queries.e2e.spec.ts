@@ -1,7 +1,6 @@
 import { JSONPath } from 'jsonpath-plus';
 import { test, expect } from '@fixtures/booker-fixture';
 import { buildBooking } from '@testdata/booking.data';
-import { createLogger } from '@utils/logger';
 
 test.describe.serial('@e2e @P0 Level 3 - JSONPath queries on booking responses', () => {
     let bookingId: number;
