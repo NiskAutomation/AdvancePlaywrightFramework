@@ -1,7 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import { envOr } from '@config/env';
 
 const ATTACH_SCREENSHOTS = process.env.ATTACH_SCREENSHOTS?.toLowerCase() === 'true';
 
@@ -60,7 +58,7 @@ export default defineConfig({
     {
       name: 'chromium',
       testDir: './src/tests',
-      testIgnore: '**/apiTests/**',
+      testIgnore: ['**/apiTests/**', '**/aiTest/**'],
       use: {
         ...devices['Desktop Chrome'],
         viewport: { width: 1920, height: 1080 }
@@ -72,6 +70,26 @@ export default defineConfig({
       use:{
         baseURL: process.env.API_BASE_URL || 'https://restful-booker.herokuapp.com',   
       }
-    }
+    },
+    {
+      name: 'ai-unit',
+      testDir: './src/tests/aiTest/unit',
+      use: {
+        trace: 'off',
+        video: 'off',
+        screenshot: 'off',
+      },
+    },
+    {
+      name: 'ai',
+      testDir: './src/tests/aiTest',
+      testMatch: ['**/create-booking.spec.ts', '**/CustomDataGen.spec.ts'],
+      use: {
+        baseURL: envOr('API_BASE_URL', 'https://restful-booker.herokuapp.com'),
+        trace: 'off',
+        video: 'off',
+        screenshot: 'off',
+      },
+    },
   ]
 });

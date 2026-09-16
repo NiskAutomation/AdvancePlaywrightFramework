@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Create Booking Response",
+  "type": "object",
+  "required": ["bookingid", "booking"],
+  "additionalProperties": true,
+  "properties": {
+    "bookingid": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "booking": {
+      "type": "object",
+      "required": [
+        "firstname",
+        "lastname",
+        "totalprice",
+        "depositpaid",
+        "bookingdates"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "firstname": { "type": "string" },
+        "lastname": { "type": "string" },
+        "totalprice": { "type": "number" },
+        "depositpaid": { "type": "boolean" },
+        "bookingdates": {
+          "type": "object",
+          "required": ["checkin", "checkout"],
+          "additionalProperties": true,
+          "properties": {
+            "checkin": { "type": "string", "format": "date" },
+            "checkout": { "type": "string", "format": "date" }
+          }
+        },
+        "additionalneeds": { "type": "string" }
+      }
+    }
+  }
+}

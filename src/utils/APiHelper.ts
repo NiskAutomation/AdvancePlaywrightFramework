@@ -77,7 +77,7 @@ export class ApiHelper {
             case 'PATCH':
                 return await request.patch(fullUrl, { headers, data, timeout });
             default:
-                throw new Error(`Unsupported HTTP method: ${method}`);
+                throw new Error(`Unsupported HTTP method: ${String(method)}`);
         }
     }
 

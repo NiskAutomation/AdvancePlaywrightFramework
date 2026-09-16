@@ -188,7 +188,24 @@ To install only Chromium:
 npx playwright install chromium
 ```
 
-> The project does not currently define npm scripts, so use the direct `npx playwright ...` commands documented below.
+> Most tasks use direct `npx playwright ...` commands documented below. `npm run lint` and `npm run lint:fix` are the only defined scripts today.
+
+### Linting (ESLint)
+
+Install (already covered by `npm ci`/`npm install` above, since it's a devDependency):
+
+```bash
+npm install -D eslint typescript-eslint
+```
+
+Run it:
+
+```bash
+npm run lint       # check
+npm run lint:fix   # check and auto-fix
+```
+
+Config lives in [`eslint.config.cjs`](eslint.config.cjs) (flat config): TypeScript-aware rules via `typescript-eslint`'s recommended set, `node_modules/`, `playwright-report/`, `tta-report/`, `test-results/`, `reports/`, and `logs/` ignored, and `@typescript-eslint/no-require-imports` turned off only for the config file itself and `src/utils/CustomReporter.ts` (which intentionally uses `require()` to load the optional AI modules without a hard dependency).
 
 ## Environment configuration
 
@@ -272,6 +289,13 @@ npx playwright test src/tests/e2e/e2e-checkout.spec-env.spec.ts --project=chromi
 ```
 
 ## Command reference
+
+### Lint
+
+```bash
+npm run lint
+npm run lint:fix
+```
 
 ### Run test projects
 

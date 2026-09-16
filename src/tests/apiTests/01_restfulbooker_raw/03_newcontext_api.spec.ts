@@ -1,5 +1,4 @@
 import { test, expect, request } from '@playwright/test';
-import {logger} from '@utils/logger';
 
 test('newContextAPI for isolated headers', async () => {
    const ctx = await request.newContext({
